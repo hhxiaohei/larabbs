@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 class EasySmsServiceProvider extends ServiceProvider
 {
+    protected $defer = true;
     /**
      * Bootstrap the application services.
      *
