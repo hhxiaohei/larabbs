@@ -19,12 +19,20 @@ $api->version('v1',['namespace'=>'App\Http\Controllers\Api'],function($api){
     $api->get('version',function(){
         return response('this is version v1');
     });
-    //短信验证码
-    $api->post('verificationsCodes','VerificationCodesController@store')
-        ->name('api.verificationCodes.store');
-    //用户注册接口
-    $api->post('users','UsersController@store')    
-        ->name('api.users.store');
+    //限制 频率 防刷
+    $api->group([
+        'middleware'=>'api.throttle',
+        'limit'=>config('api.rate_limits.sign.limit'),
+        'expires'=>config('api.rate_limits.sign.expires'),
+    ],function ($api){
+        //短信验证码
+        $api->post('verificationsCodes','VerificationCodesController@store')
+            ->name('api.verificationCodes.store');
+        //用户注册接口
+        $api->post('users','UsersController@store')
+            ->name('api.users.store');
+    });
+
 });
 
 $api->version('v2',function($api){
