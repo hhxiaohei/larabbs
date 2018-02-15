@@ -25,17 +25,17 @@ class VerificationCodesController extends Controller
         }catch(\GuzzleHttp\Exception\ClientException $e){
             $response = $e->getResponse();
             $result = json_decode($response->getBody()->getContents(),1);
-            return $this->respnse->errorInternal($result['msg']??'短信发送异常');
+            return $this->response->errorInternal($result['msg']??'短信发送异常');
         }
 
         $expiredAt = now()->addMinutes(10);
-        \Cache::put('verficationCode_'.$code , [
+        \Cache::put('verficationCode_'.$phone , [
             'phone'=>$phone,
             'code'=>$code,
         ],$expiredAt);
 
         return $this->response->array([
-            'key'=>'verficationCode_'.$code,
+            'key'=>'verficationCode_'.$phone,
             'expired_at'=>$expiredAt->toDateTimeString(),
         ])->setStatusCode(201);
     }
