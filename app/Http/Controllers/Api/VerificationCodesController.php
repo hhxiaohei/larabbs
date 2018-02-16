@@ -68,6 +68,9 @@ class VerificationCodesController extends Controller
             'code'=>$code,
         ],$expiredAt);
 
+        // 清理验证码缓存
+        \Cache::forget($captcha_key);
+
         return $this->response->array([
             'key'=>'verficationCode_'.$phone,
             'expired_at'=>$expiredAt->toDateTimeString(),
