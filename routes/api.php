@@ -31,6 +31,8 @@ $api->version('v1',['namespace'=>'App\Http\Controllers\Api'],function($api){
         //用户注册接口
         $api->post('users','UsersController@store')
             ->name('api.users.store');
+        //图像验证码 gregwar/captcha  这个包 不依赖与 session
+        $api->post('captchas','CaptchasController@store')->name('api.captchas.store');
     });
 
 });
