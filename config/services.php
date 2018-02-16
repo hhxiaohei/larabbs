@@ -39,5 +39,10 @@ return [
         'appid' => env('BAIDU_TRANSLATE_APPID'),
         'key'   => env('BAIDU_TRANSLATE_KEY'),
     ],
+    'weixin' => [
+        'client_id'     => env('APP_ID'),
+        'client_secret' => env('APP_SECRET'),
+        'redirect'      => env('WECHAT_REDIRECT'),
+    ],
 
 ];
