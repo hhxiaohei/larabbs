@@ -35,6 +35,12 @@ $api->version('v1',['namespace'=>'App\Http\Controllers\Api'],function($api){
         $api->post('captchas','CaptchasController@store')->name('api.captchas.store');
         //微信授权登录
         $api->post('social/{social_type}/authorizations' , 'AuthorizationsController@socialStore')->name('api.social.wechat.store');
+        // token登录
+        $api->post('authorizations','AuthorizationsController@store')->name('api.authorizations.store');
+        //刷新 token
+        $api->put('authorizations/current','AuthorizationsController@update')->name('api.authorizations.update');
+        //删除 token
+        $api->delete('authorizations/current','AuthorizationsController@delete')->name('api.authorizations.delete');
     });
 
 });
