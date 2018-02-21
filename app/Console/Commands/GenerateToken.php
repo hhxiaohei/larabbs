@@ -40,7 +40,7 @@ class GenerateToken extends Command
     {
         $userId = $this->ask('请输入用户 ID', 1);
 
-        if ( env('APP_DEBUG') ) {
+        if ( !env('APP_DEBUG') ) {
             return $this->error('仅供测试使用');
         }
 

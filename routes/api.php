@@ -15,7 +15,10 @@ use Illuminate\Http\Request;
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1',['namespace'=>'App\Http\Controllers\Api'],function($api){
+$api->version('v1', [
+    'namespace'  => 'App\Http\Controllers\Api',
+    'middleware' => 'serializer:array',//serializer:data_array 包一层 data, serializer:array 为去除 data 的数据格式
+], function ($api) {
     $api->get('version',function(){
         return response('this is version v1');
     });
@@ -43,6 +46,21 @@ $api->version('v1',['namespace'=>'App\Http\Controllers\Api'],function($api){
         $api->delete('authorizations/current','AuthorizationsController@delete')->name('api.authorizations.delete');
     });
 
+    $api->group([
+        'middleware' => 'api.throttle',
+        'limit'      => config('api.rate_limits.access.limit'),
+        'expires'    => config('api.rate_limits.access.expires'),
+    ], function ($api) {
+        //游客 api
+
+        //用户 api
+        $api->group([
+            'middleware' => 'api.auth',
+        ], function ($api) {
+            $api->get('user', 'UsersController@me')->name('api.user.me');
+        });
+
+    });
 });
 
 $api->version('v2',function($api){
