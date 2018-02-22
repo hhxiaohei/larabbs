@@ -52,6 +52,8 @@ $api->version('v1', [
         'expires'    => config('api.rate_limits.access.expires'),
     ], function ($api) {
         //游客 api
+        //分类
+        $api->get('categories', 'CategoriesController@index')->name('api.categories.index');
 
         //用户 api
         $api->group([
