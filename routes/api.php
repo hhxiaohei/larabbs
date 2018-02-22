@@ -17,7 +17,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
     'namespace'  => 'App\Http\Controllers\Api',
-    'middleware' => 'serializer:array',//serializer:data_array 包一层 data, serializer:array 为去除 data 的数据格式
+    'middleware' => ['serializer:array', 'bindings'],//serializer:data_array 包一层 data, serializer:array 为去除 data 的数据格式
 ], function ($api) {
     $api->get('version',function(){
         return response('this is version v1');
@@ -66,6 +66,8 @@ $api->version('v1', [
             $api->post('images', 'ImagesController@store');
             //发布话题
             $api->post('topic', 'TopicsController@store')->name('api.topic.store');
+            //编辑话题
+            $api->patch('topic/{topic}', 'TopicsController@update')->name('api.topic.update');
         });
 
     });

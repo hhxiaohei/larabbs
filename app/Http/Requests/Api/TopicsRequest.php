@@ -23,11 +23,24 @@ class TopicsRequest extends FormRequest
      */
     public function rules ()
     {
-        return [
-            'title'       => 'required|string',
-            'body'        => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-        ];
+        switch ($this->method()) {
+            case 'POST':
+                return [
+                    'title'       => 'required|string',
+                    'body'        => 'required|string|max:255',
+                    'category_id' => 'required|exists:categories,id',
+                ];
+                break;
+            case 'PATCH':
+                //因为 patch 只提供部分信息,所以不是都是必填
+                return [
+                    'title'       => 'string',
+                    'body'        => 'string|max:255',
+                    'category_id' => 'exists:categories,id',
+                ];
+                break;
+        }
+
     }
 
     public function attributes ()
