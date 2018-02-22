@@ -64,6 +64,8 @@ $api->version('v1', [
             $api->patch('user', 'UsersController@update')->name('api.user.update');
             //图片上传
             $api->post('images', 'ImagesController@store');
+            //发布话题
+            $api->post('topic', 'TopicsController@store')->name('api.topic.store');
         });
 
     });
