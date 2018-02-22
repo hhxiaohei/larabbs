@@ -58,6 +58,10 @@ $api->version('v1', [
             'middleware' => 'api.auth',
         ], function ($api) {
             $api->get('user', 'UsersController@me')->name('api.user.me');
+            //更新用户信息(patch 为更新部分数据  put 为修改全部数据)
+            $api->patch('user', 'UsersController@update')->name('api.user.update');
+            //图片上传
+            $api->post('images', 'ImagesController@store');
         });
 
     });

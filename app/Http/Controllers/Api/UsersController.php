@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\UsersRequest;
+use App\Models\Image;
 use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -91,12 +92,23 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update (Request $request, $id)
+    public function update (UsersRequest $request)
     {
-        //
+        //patch 修改部分资源
+        $user = $this->user();
+
+        $attributes = $request->all();
+
+        if ( $request->avatar_image_id ) {
+            $image                = Image::find($request->avatar_image_id);
+            $attributes['avatar'] = $image->path;
+        }
+
+        $user->update($attributes);
+
+        return $this->response->item($user, UserTransformer::class);
     }
 
     /**
