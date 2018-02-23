@@ -68,6 +68,8 @@ $api->version('v1', [
             $api->post('topic', 'TopicsController@store')->name('api.topic.store');
             //编辑话题
             $api->patch('topic/{topic}', 'TopicsController@update')->name('api.topic.update');
+            //删除话题
+            $api->delete('topic/{topic}', 'TopicsController@destroy')->name('api.topic.destroy');
         });
 
     });
