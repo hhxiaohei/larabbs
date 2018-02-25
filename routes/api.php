@@ -54,8 +54,11 @@ $api->version('v1', [
         //游客 api
         //分类
         $api->get('categories', 'CategoriesController@index')->name('api.categories.index');
+        //话题
         $api->get('topics', 'TopicsController@index')->name('api.topics.index');
         $api->get('users/{user}/topics', 'TopicsController@userIndex')->name('api.users.topics.index');
+        //单条话题详情
+        $api->get('topics/{topic}', 'TopicsController@show')->name('api.topics.show');
 
         //用户 api
         $api->group([
