@@ -95,8 +95,16 @@ class RepliesController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy ($id)
+    public function destroy (Topic $topic, Reply $reply)
     {
-        //
+        if ( $topic->id !== $reply->topic_id ) {
+            return $this->response->errorBadRequest('回复的话题与传入的值不符合');
+        }
+
+        $this->authorize('destroy', $reply);
+
+        $reply->delete();
+
+        return $this->response->noContent();
     }
 }

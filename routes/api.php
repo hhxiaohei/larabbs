@@ -78,6 +78,8 @@ $api->version('v1', [
 
             //发表回复
             $api->post('topics/{topic}/replies', 'RepliesController@store')->name('api.topic.reply.store');
+            //删除某个话题的某个回复(权限控制 )
+            $api->delete('topics/{topic}/replies/{reply}', 'RepliesController@destroy')->name('api.topic.reply.destroy');
         });
 
     });
