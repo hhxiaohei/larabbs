@@ -15,9 +15,10 @@ class RepliesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index ()
+    public function index (Request $request, Topic $topic)
     {
-        //
+        $replies = Reply::where('topic_id', $topic->id)->paginate(5);
+        return $this->response->paginator($replies, new ReplyTransformer());
     }
 
     /**

@@ -59,6 +59,7 @@ $api->version('v1', [
         $api->get('users/{user}/topics', 'TopicsController@userIndex')->name('api.users.topics.index');
         //单条话题详情
         $api->get('topics/{topic}', 'TopicsController@show')->name('api.topics.show');
+        $api->get('topics/{topic}/replies', 'RepliesController@index')->name('api.topics.replies.index');
 
         //用户 api
         $api->group([
