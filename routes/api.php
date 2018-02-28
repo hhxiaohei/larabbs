@@ -81,6 +81,13 @@ $api->version('v1', [
             $api->post('topics/{topic}/replies', 'RepliesController@store')->name('api.topic.reply.store');
             //删除某个话题的某个回复(权限控制 )
             $api->delete('topics/{topic}/replies/{reply}', 'RepliesController@destroy')->name('api.topic.reply.destroy');
+            //某用户的所有回复信息
+            //l5bbs.dev/api/users/:user/replies?include=topic.user  回复对应的话题中的提问者信息全部取出
+            //l5bbs.dev/api/users/:user/replies?include=topic.category  回复对应的话题中的分类信息全部取出
+            //include 中加入信息 然后点连接起来 可以取相应的多层关联
+            //逗号 —— 是当前资源所关联的资源，如 include=topic,user；
+            //点 —— 当前资源所关联的资源，及其所关联的资源，相当于下一级资源，如 include=topic.user；
+            $api->get('users/{user}/replies', 'RepliesController@userIndex')->name('api.user.replies.index');
         });
 
     });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\ReplyRequest;
 use App\Models\Reply;
 use App\Models\Topic;
+use App\Models\User;
 use App\Transformers\ReplyTransformer;
 use Illuminate\Http\Request;
 
@@ -107,5 +108,10 @@ class RepliesController extends Controller
         $reply->delete();
 
         return $this->response->noContent();
+    }
+
+    public function userIndex (User $user)
+    {
+        return $this->response->paginator($user->replies()->paginate(10), new ReplyTransformer());
     }
 }
