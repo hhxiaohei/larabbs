@@ -88,6 +88,8 @@ $api->version('v1', [
             //逗号 —— 是当前资源所关联的资源，如 include=topic,user；
             //点 —— 当前资源所关联的资源，及其所关联的资源，相当于下一级资源，如 include=topic.user；
             $api->get('users/{user}/replies', 'RepliesController@userIndex')->name('api.user.replies.index');
+            //未读消息
+            $api->get('users/notifications', 'NotificationsController@index')->name('api.user.notifications.index');
         });
 
     });
