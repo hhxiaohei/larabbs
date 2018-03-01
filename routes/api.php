@@ -90,6 +90,9 @@ $api->version('v1', [
             $api->get('users/{user}/replies', 'RepliesController@userIndex')->name('api.user.replies.index');
             //未读消息
             $api->get('users/notifications', 'NotificationsController@index')->name('api.user.notifications.index');
+            $api->get('users/notifications/stats', 'NotificationsController@stats')->name('api.user.notifications.stats');
+            //所有未读消息都改为已读 put为单条
+            $api->patch('user/read/notifications', 'NotificationsController@read')->name('api.user.read.notifications');
         });
 
     });
