@@ -93,6 +93,9 @@ $api->version('v1', [
             $api->get('users/notifications/stats', 'NotificationsController@stats')->name('api.user.notifications.stats');
             //所有未读消息都改为已读 put为单条
             $api->patch('user/read/notifications', 'NotificationsController@read')->name('api.user.read.notifications');
+
+            //permissions
+            $api->get('user/permissions','PermissionsController@index')->name('api.user.permissions.index');
         });
 
     });
