@@ -61,6 +61,9 @@ $api->version('v1', [
         $api->get('topics/{topic}', 'TopicsController@show')->name('api.topics.show');
         $api->get('topics/{topic}/replies', 'RepliesController@index')->name('api.topics.replies.index');
 
+        //文章推荐
+        $api->get('links','LinksController@index')->name('api.links.index');
+
         //用户 api
         $api->group([
             'middleware' => 'api.auth',
