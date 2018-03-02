@@ -24,6 +24,9 @@ class Kernel extends HttpKernel
 
         // 修正代理服务器后的服务器参数
         \App\Http\Middleware\TrustProxies::class,
+
+        //本地化
+        \App\Http\Middleware\ChangeLocale::class,
     ];
 
     // 定义中间件组
@@ -89,5 +92,8 @@ class Kernel extends HttpKernel
 
         // 访问节流，类似于 『1 分钟只能请求 10 次』的需求，一般在 API 中使用
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        'change.locale'=>\App\Http\Middleware\ChangeLocale::class,
+
     ];
 }

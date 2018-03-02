@@ -75,7 +75,8 @@ class AuthorizationsController extends Controller
 
         try {
             if ( !$token = JWTAuth::attempt($form) ) {
-                return $this->response->errorUnauthorized('用户名或者密码错误');
+//                return $this->errorResponse(403,'aaa',1001);
+                return $this->response->errorUnauthorized(trans('auth.failed'));
             }
             return $this->respondWithToken($token);
         } catch (JWTException $e) {

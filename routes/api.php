@@ -17,7 +17,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
     'namespace'  => 'App\Http\Controllers\Api',
-    'middleware' => ['serializer:array', 'bindings'],//serializer:data_array 包一层 data, serializer:array 为去除 data 的数据格式
+    'middleware' => ['serializer:array', 'bindings','change.locale'],//serializer:data_array 包一层 data, serializer:array 为去除 data 的数据格式
 ], function ($api) {
     $api->get('version',function(){
         return response('this is version v1');
