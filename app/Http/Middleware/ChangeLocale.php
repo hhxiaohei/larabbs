@@ -16,7 +16,7 @@ class ChangeLocale
     public function handle($request, Closure $next)
     {
         \App::setLocale($request->header('accept-language',config('app.locale')));
-        
+
         return $next($request);
     }
 }

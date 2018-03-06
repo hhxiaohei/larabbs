@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "edbc0ebebc25787dfd8db0e5d6d820b1",
+    "content-hash": "4262ff7cb9b3efd8a858cac76fa54c4b",
     "packages": [
         {
             "name": "cakephp/chronos",
@@ -2465,6 +2465,55 @@
             "time": "2018-01-25T21:31:33+00:00"
         },
         {
+            "name": "noh4ck/graphiql",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/noh4ck/laravel-graphiql.git",
+                "reference": "7a90329a8b2dc393044ca954fead70f1d6d6cf17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/noh4ck/laravel-graphiql/7a90329a8b2dc393044ca954fead70f1d6d6cf17.zip",
+                "reference": "7a90329a8b2dc393044ca954fead70f1d6d6cf17",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Graphiql\\GraphiqlServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Graphiql\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Rudlang",
+                    "email": "jonas.rudlang@gmail.com"
+                }
+            ],
+            "description": "Graphiql ui for laravel",
+            "keywords": [
+                "graphiql",
+                "graphql",
+                "laravel"
+            ],
+            "time": "2018-02-17T20:37:29+00:00"
+        },
+        {
             "name": "overtrue/easy-sms",
             "version": "1.0.5",
             "source": {
@@ -3192,6 +3241,81 @@
             "time": "2018-01-20T00:28:24+00:00"
         },
         {
+            "name": "rebing/graphql-laravel",
+            "version": "v1.9.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rebing/graphql-laravel.git",
+                "reference": "380d3fbc91a0b7c73912ea1d71916db219c9cb57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/rebing/graphql-laravel/380d3fbc91a0b7c73912ea1d71916db219c9cb57.zip",
+                "reference": "380d3fbc91a0b7c73912ea1d71916db219c9cb57",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+                "laravel/framework": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+                "php": ">=5.5.9",
+                "webonyx/graphql-php": "~0.10.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.5|~6.0"
+            },
+            "type": "project",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rebing\\GraphQL\\GraphQLServiceProvider"
+                    ],
+                    "aliases": {
+                        "GraphQL": "Rebing\\GraphQL\\Support\\Facades\\GraphQL"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Rebing\\GraphQL\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Folklore",
+                    "email": "info@atelierfolklore.ca",
+                    "homepage": "http://atelierfolklore.ca"
+                },
+                {
+                    "name": "David Mongeau-Petitpas",
+                    "email": "dmp@atelierfolklore.ca",
+                    "homepage": "http://mongo.ca",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Rebing OÜ",
+                    "homepage": "http://www.rebing.ee",
+                    "role": "Company"
+                },
+                {
+                    "name": "Mikk Mihkel Nurges",
+                    "email": "mikk.nurges@rebing.ee",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel wrapper for PHP GraphQL",
+            "keywords": [
+                "framework",
+                "graphql",
+                "laravel",
+                "react"
+            ],
+            "time": "2018-02-28T12:53:19+00:00"
+        },
+        {
             "name": "socialiteproviders/manager",
             "version": "v3.3.1",
             "source": {
@@ -3348,16 +3472,16 @@
         },
         {
             "name": "summerblue/administrator",
-            "version": "v1.1.6",
+            "version": "v1.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/summerblue/administrator.git",
-                "reference": "fb1eafbe6c5422d10104e242415d815866e1009b"
+                "reference": "e775635f3d1d462ae88aaf2d080be863df3a5d54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/summerblue/administrator/fb1eafbe6c5422d10104e242415d815866e1009b.zip",
-                "reference": "fb1eafbe6c5422d10104e242415d815866e1009b",
+                "url": "https://files.phpcomposer.com/files/summerblue/administrator/e775635f3d1d462ae88aaf2d080be863df3a5d54.zip",
+                "reference": "e775635f3d1d462ae88aaf2d080be863df3a5d54",
                 "shasum": ""
             },
             "require": {
@@ -3405,7 +3529,7 @@
                 "laravel",
                 "laravel-administrator"
             ],
-            "time": "2017-12-26T07:58:05+00:00"
+            "time": "2018-02-27T01:14:55+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4644,6 +4768,53 @@
                 "validate"
             ],
             "time": "2018-01-29T19:49:41+00:00"
+        },
+        {
+            "name": "webonyx/graphql-php",
+            "version": "v0.10.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webonyx/graphql-php.git",
+                "reference": "7cc863df37b2270ec2b57cb9d322da064d832a59"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/webonyx/graphql-php/7cc863df37b2270ec2b57cb9d322da064d832a59.zip",
+                "reference": "7cc863df37b2270ec2b57cb9d322da064d832a59",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.5,<8.0-DEV"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8",
+                "psr/http-message": "^1.0"
+            },
+            "suggest": {
+                "psr/http-message": "To use standard GraphQL server",
+                "react/promise": "To leverage async resolving on React PHP platform"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/deprecated.php"
+                ],
+                "psr-4": {
+                    "GraphQL\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "description": "A PHP port of GraphQL reference implementation",
+            "homepage": "https://github.com/webonyx/graphql-php",
+            "keywords": [
+                "api",
+                "graphql"
+            ],
+            "time": "2017-08-30T16:33:58+00:00"
         }
     ],
     "packages-dev": [
@@ -6357,6 +6528,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "dingo/api": 15,
+        "noh4ck/graphiql": 20,
         "tymon/jwt-auth": 5
     },
     "prefer-stable": false,
