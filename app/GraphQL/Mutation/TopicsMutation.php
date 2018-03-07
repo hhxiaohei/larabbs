@@ -5,7 +5,6 @@ use App\Models\Topic;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Mutation;
-use App\User;
 
 class TopicsMutation extends Mutation {
 
@@ -19,11 +18,11 @@ class TopicsMutation extends Mutation {
         return GraphQL::type('topic');
     }
 
-    //传入参数
+    //传入参数 加验证
     public function args()
     {
         return [
-            'title' => ['name' => 'title', 'type' => Type::nonNull(Type::string())],
+            'title' => ['name' => 'title', 'type' => Type::nonNull(Type::string()),'rules'=>['required']],
             'body' => ['name' => 'body', 'type' => Type::nonNull(Type::string())],
             'user_id' => ['name' => 'user_id', 'type' => Type::nonNull(Type::int())],
             'category_id' => ['name' => 'category_id', 'type' => Type::nonNull(Type::int())]
