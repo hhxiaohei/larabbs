@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\AuthorizationsRequest;
 use App\Http\Requests\Api\SocialAuthorizationRequest;
 use App\Models\User;
+use App\Traits\PassportToken;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response as Psr7Response;
 use Illuminate\Http\Request;
@@ -14,6 +15,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthorizationsController extends Controller
 {
+    use PassportToken;
+
     public function socialStore ($type, SocialAuthorizationRequest $request)
     {
         if ( !in_array($type, ['weixin']) ) {
@@ -59,7 +62,9 @@ class AuthorizationsController extends Controller
         }
         //创建 token
         try {
-            return $this->respondWithToken(\Auth::guard('api')->fromUser($user));
+            $result = $this->getBearerTokenByUser($user , 1 ,false);
+            return $this->response->array($result)->setStatusCode(201);
+//            return $this->respondWithToken(\Auth::guard('api')->fromUser($user));
         } catch (JWTException $e) {
             return $this->response->error('could_not_create_token');
         }
