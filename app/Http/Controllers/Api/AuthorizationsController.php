@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\AuthorizationsRequest;
 use App\Http\Requests\Api\SocialAuthorizationRequest;
 use App\Models\User;
+use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response as Psr7Response;
 use Illuminate\Http\Request;
+use League\OAuth2\Server\AuthorizationServer;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -62,38 +65,52 @@ class AuthorizationsController extends Controller
         }
     }
 
-    public function store (AuthorizationsRequest $request)
+    //passport oauth2 生成 token
+    public function store (AuthorizationsRequest $originRequest , AuthorizationServer $server,ServerRequestInterface $serverRequest)
     {
-        $username = $request->username;
-
-        //邮箱格式判断
-        filter_var($username, FILTER_VALIDATE_EMAIL) ?
-            $form['email'] = $username :
-            $form['phone'] = $username;
-
-        $form['password'] = $request->password;
-
-        try {
-            if ( !$token = JWTAuth::attempt($form) ) {
-//                return $this->errorResponse(403,'aaa',1001);
-                return $this->response->errorUnauthorized(trans('auth.failed'));
-            }
-            return $this->respondWithToken($token);
-        } catch (JWTException $e) {
-            return $this->response->error('could_not_create_token');
+        try{
+            return $server->respondToAccessTokenRequest($serverRequest,new Psr7Response)->withStatus(201);
+        }catch (\OAuthException $exception){
+            return $this->response->errorUnauthorized($exception->getMessage());
         }
+//        $username = $request->username;
+//
+//        //邮箱格式判断
+//        filter_var($username, FILTER_VALIDATE_EMAIL) ?
+//            $form['email'] = $username :
+//            $form['phone'] = $username;
+//
+//        $form['password'] = $request->password;
+//
+//        try {
+//            if ( !$token = JWTAuth::attempt($form) ) {
+////                return $this->errorResponse(403,'aaa',1001);
+//                return $this->response->errorUnauthorized(trans('auth.failed'));
+//            }
+//            return $this->respondWithToken($token);
+//        } catch (JWTException $e) {
+//            return $this->response->error('could_not_create_token');
+//        }
+
     }
 
-    public function update ()
+    //passport 改造 暂时去掉 request 验证
+    public function update (AuthorizationServer $server,ServerRequestInterface $serverRequest)
     {
-        $token = \Auth::guard('api')->refresh();
-        return $this->respondWithToken($token);
+//        $token = \Auth::guard('api')->refresh();
+//        return $this->respondWithToken($token);
+        try{
+            return $server->respondToAccessTokenRequest($serverRequest,new Psr7Response);
+        }catch (\OAuthException $exception){
+            return $this->response->errorUnauthorized($exception->getMessage());
+        }
     }
 
     public function delete ()
     {
-        \Auth::guard('api')->logout();
+//        \Auth::guard('api')->logout();
         //删除 204
+        $this->user()->token()->revoke();
         return $this->response->noContent();
     }
 
