@@ -32,7 +32,7 @@ class TopicsController extends Controller
                 break;
         }
 
-        $topics = $query->paginate(10);
+        $topics = $query->paginate(10)->appends($request->toArray());
 
         return $this->response->paginator($topics, TopicTransformer::class);
 
