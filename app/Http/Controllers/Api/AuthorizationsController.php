@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\AuthorizationsRequest;
 use App\Http\Requests\Api\SocialAuthorizationRequest;
+use App\Http\Requests\Api\WeappAuthorizationRequest;
 use App\Models\User;
+use EasyWeChat\Factory;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -104,5 +106,46 @@ class AuthorizationsController extends Controller
             'token_type'   => 'Bearer',
             'expires_in'   => \Auth::guard('api')->factory()->getTTL() * 60,
         ])->setStatusCode(201);
+    }
+
+    public function weAppStore (WeappAuthorizationRequest $request)
+    {
+        $weapp      = Factory::miniProgram(config('wechat.mini_program.default'));
+        $weapp_data = $weapp->auth->session($request->code);
+
+        if ( isset($weapp_data['errcode']) ) {
+            return $this->response->errorUnauthorized('weapp code error!');
+        }
+
+        //找到weapp_openid 用户
+        $user = User::where('weapp_openid', $weapp_data['openid'])->first();
+
+        if ( !$user ) {
+
+            //没有找到则检验手机号与密码
+            if ( !$request->username && !$request->password ) {
+                return $this->response->errorNotFound('User Not Find!');
+            }
+            //没有手机号与密码 则404
+            $username = $request->username;
+            filter_var($username, FILTER_VALIDATE_EMAIL) ?
+                $attribute['email'] = $username :
+                $attribute['phone'] = $username;
+
+            $attribute['password'] = $request->password;
+
+            //验证账号密码
+            if ( !\Auth::guard('api')->once($attribute) ) {
+                return $this->response->errorUnauthorized('用户名或密码错误');
+            }
+            $user = \Auth::guard('api')->getUser();
+            //追加小程序openid
+            $user->weapp_openid = $weapp_data['openid'];
+        }
+        //更新session_key
+        $user->weapp_session_key = $weapp_data['session_key'];
+        $user->save();
+        //返回token
+        return $this->respondWithToken(\Auth::guard('api')->fromUser($user))->setStatusCode(201);
     }
 }

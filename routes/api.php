@@ -102,6 +102,8 @@ $api->version('v1', [
             //permissions
             $api->get('user/permissions','PermissionsController@index')->name('api.user.permissions.index');
         });
+        //小程序相关接口
+        $api->post('weapp/authorizations','AuthorizationsController@weAppStore')->name('api.weapp.authorizations.store');
 
     });
 });
